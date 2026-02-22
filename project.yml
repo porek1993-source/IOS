@@ -6,6 +6,7 @@ targets:
     type: application
     platform: iOS
     deploymentTarget: "17.0"
+    bundleId: com.agilecoach.app
     sources:
       - path: .
         excludes:
