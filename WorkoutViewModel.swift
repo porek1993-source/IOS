@@ -171,31 +171,6 @@ final class WorkoutViewModel {
     }
 }
 
-// MARK: - Preview Mock
-#if DEBUG
-extension WorkoutViewModel {
-    static var preview: WorkoutViewModel {
-        let schema = Schema([
-            FatigueProfile.self,
-            WorkoutSession.self,
-            FatigueEvent.self,
-            ExerciseSet.self,
-            Exercise.self,
-            ExternalSport.self
-        ])
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try! ModelContainer(for: schema, configurations: config)
-        
-        let healthKitManager = HealthKitManager()
-        let viewModel = WorkoutViewModel(modelContext: container.mainContext, healthKitManager: healthKitManager)
-        
-        // Add some mock exercises
-        let e1 = Exercise(name: "Bench Press", primaryMuscleGroup: .chest, requiredEquipment: [.barbell], isCompound: true)
-        let e2 = Exercise(name: "Squat", primaryMuscleGroup: .quads, requiredEquipment: [.barbell], isCompound: true)
-        container.mainContext.insert(e1)
-        container.mainContext.insert(e2)
-        
-        return viewModel
+    try? modelContext.save()
     }
 }
-#endif

@@ -50,7 +50,4 @@ struct ManualFatigueOverrideView: View {
     }
 }
 
-#Preview {
-    ManualFatigueOverrideView()
-        .environment(WorkoutViewModel.preview)
 }

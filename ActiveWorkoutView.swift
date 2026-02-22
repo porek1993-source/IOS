@@ -202,7 +202,4 @@ struct ExerciseCard: View {
     }
 }
 
-#Preview {
-    ActiveWorkoutView()
-        .environment(WorkoutViewModel.preview)
 }
