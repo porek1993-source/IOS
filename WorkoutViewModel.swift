@@ -154,8 +154,6 @@ final class WorkoutViewModel {
     func toggleManualFatigue(for muscle: MuscleGroup) {
         guard let fatigueProfile = fatigueProfile else { return }
         
-        // If current fatigue is high, we "reset" it by doing nothing or we could add a "recovery" event.
-        // For simplicity, this just adds a "high fatigue" event if not already fatigued.
         let current = fatigueProfile.currentFatigue()
         let isFatigued = (current[muscle] ?? .none) >= .medium
         
@@ -169,7 +167,7 @@ final class WorkoutViewModel {
             fatigueProfile.events.append(event)
         }
         
-    try? modelContext.save()
+        try? modelContext.save()
     }
 }
 
@@ -182,7 +180,8 @@ extension WorkoutViewModel {
             WorkoutSession.self,
             FatigueEvent.self,
             ExerciseSet.self,
-            Exercise.self
+            Exercise.self,
+            ExternalSport.self
         ])
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try! ModelContainer(for: schema, configurations: config)
@@ -191,8 +190,8 @@ extension WorkoutViewModel {
         let viewModel = WorkoutViewModel(modelContext: container.mainContext, healthKitManager: healthKitManager)
         
         // Add some mock exercises
-        let e1 = Exercise(name: "Bench Press", primaryMuscleGroup: .chest, isCompound: true)
-        let e2 = Exercise(name: "Squat", primaryMuscleGroup: .quads, isCompound: true)
+        let e1 = Exercise(name: "Bench Press", primaryMuscleGroup: .chest, requiredEquipment: [.barbell], isCompound: true)
+        let e2 = Exercise(name: "Squat", primaryMuscleGroup: .quads, requiredEquipment: [.barbell], isCompound: true)
         container.mainContext.insert(e1)
         container.mainContext.insert(e2)
         

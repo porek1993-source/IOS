@@ -6,7 +6,7 @@ struct DashboardView: View {
     @State private var showingSetup = false
     
     var body: some View {
-        @Bindable var viewModel = viewModel
+        @Bindable var bindableViewModel = viewModel
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 // MARK: - Header
@@ -181,12 +181,13 @@ struct WorkoutSetupView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
+        @Bindable var bindableViewModel = viewModel
         NavigationStack {
             Form {
                 Section("Settings") {
-                    Stepper("Time: \(viewModel.availableMinutes) min", value: $viewModel.availableMinutes, in: 15...120, step: 5)
+                    Stepper("Time: \(bindableViewModel.availableMinutes) min", value: $bindableViewModel.availableMinutes, in: 15...120, step: 5)
                     
-                    Picker("Goal", selection: $viewModel.selectedGoal) {
+                    Picker("Goal", selection: $bindableViewModel.selectedGoal) {
                         ForEach(WorkoutGoal.allCases) { goal in
                             Text(goal.rawValue).tag(goal)
                         }
@@ -196,12 +197,12 @@ struct WorkoutSetupView: View {
                 Section("Equipment") {
                     ForEach(Equipment.allCases) { equipment in
                         Toggle(equipment.rawValue, isOn: Binding(
-                            get: { viewModel.selectedEquipment.contains(equipment) },
+                            get: { bindableViewModel.selectedEquipment.contains(equipment) },
                             set: { newValue in
                                 if newValue {
-                                    viewModel.selectedEquipment.append(equipment)
+                                    bindableViewModel.selectedEquipment.append(equipment)
                                 } else {
-                                    viewModel.selectedEquipment.removeAll { $0 == equipment }
+                                    bindableViewModel.selectedEquipment.removeAll { $0 == equipment }
                                 }
                             }
                         ))
@@ -209,7 +210,7 @@ struct WorkoutSetupView: View {
                 }
                 
                 Button {
-                    viewModel.generateWorkout()
+                    bindableViewModel.generateWorkout()
                     dismiss()
                 } label: {
                     Text("Build My Program")
