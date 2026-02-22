@@ -6,6 +6,7 @@ struct ActiveWorkoutView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
+        @Bindable var viewModel = viewModel
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
@@ -46,7 +47,7 @@ struct ActiveWorkoutView: View {
             }
         }
         .preferredColorScheme(.dark)
-        .fullScreenCover(isPresented: Bindable(viewModel).showSummary) {
+        .fullScreenCover(isPresented: $viewModel.showSummary) {
             WorkoutSummaryView()
                 .environment(viewModel)
         }

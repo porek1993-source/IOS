@@ -9,6 +9,7 @@
 //   • WorkoutGoal řídí schéma sérií/opakování (je zde, aby byl engine soběstačný).
 
 import Foundation
+import SwiftData
 
 // MARK: - Podpůrné typy
 
@@ -374,7 +375,7 @@ final class SwiftDataExerciseRepository: ExerciseRepositoryProtocol {
 
     func fetchHistory(for exercise: Exercise) -> [ExerciseHistory] {
         var descriptor = FetchDescriptor<ExerciseSet>(
-            sortBy: [SortDescriptor(\.completedAt, order: .reverse)]
+            sortBy: [SortDescriptor<ExerciseSet>(\.completedAt, order: .reverse)]
         )
         // Omezit na 50 záznamů — dostatečná historie pro jakýkoliv algoritmus progrese.
         descriptor.fetchLimit = 50

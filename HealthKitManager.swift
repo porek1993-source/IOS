@@ -14,6 +14,7 @@
 import Foundation
 import HealthKit
 import Observation
+import SwiftData
 
 // MARK: - Chybové stavy
 
@@ -280,7 +281,7 @@ struct ActivityFatigueMapper {
                 .core:       .low,
             ]
 
-        case .skating:
+        case .skatingSports:
             return [
                 .quads:      .high,
                 .glutes:     .high,
@@ -499,7 +500,7 @@ struct ActivityFatigueMapper {
         case .kickboxing:                   return "Kickbox"
         case .wrestling:                    return "Zápas"
         case .hockey:                       return "Hokej / Florbal"
-        case .skating:                      return "Bruslení"
+        case .skatingSports:                      return "Bruslení"
         case .soccer:                       return "Fotbal"
         case .basketball:                   return "Basketbal"
         case .volleyball:                   return "Volejbal"

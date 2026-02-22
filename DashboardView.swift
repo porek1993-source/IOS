@@ -6,6 +6,7 @@ struct DashboardView: View {
     @State private var showingSetup = false
     
     var body: some View {
+        @Bindable var viewModel = viewModel
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 // MARK: - Header

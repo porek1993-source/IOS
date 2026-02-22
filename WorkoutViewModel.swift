@@ -169,6 +169,34 @@ final class WorkoutViewModel {
             fatigueProfile.events.append(event)
         }
         
-        try? modelContext.save()
+    try? modelContext.save()
     }
 }
+
+// MARK: - Preview Mock
+#if DEBUG
+extension WorkoutViewModel {
+    static var preview: WorkoutViewModel {
+        let schema = Schema([
+            FatigueProfile.self,
+            WorkoutSession.self,
+            FatigueEvent.self,
+            ExerciseSet.self,
+            Exercise.self
+        ])
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try! ModelContainer(for: schema, configurations: config)
+        
+        let healthKitManager = HealthKitManager()
+        let viewModel = WorkoutViewModel(modelContext: container.mainContext, healthKitManager: healthKitManager)
+        
+        // Add some mock exercises
+        let e1 = Exercise(name: "Bench Press", primaryMuscleGroup: .chest, isCompound: true)
+        let e2 = Exercise(name: "Squat", primaryMuscleGroup: .quads, isCompound: true)
+        container.mainContext.insert(e1)
+        container.mainContext.insert(e2)
+        
+        return viewModel
+    }
+}
+#endif

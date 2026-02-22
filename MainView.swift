@@ -41,5 +41,5 @@ struct MainView: View {
     // This preview might need a real model container or a mock one.
     // For simplicity, we can use the ViewModel.preview's components.
     let vm = WorkoutViewModel.preview
-    return MainView(modelContext: vm.modelContext, healthKitManager: vm.healthKitManager)
+    MainView(modelContext: vm.modelContext, healthKitManager: vm.healthKitManager)
 }
