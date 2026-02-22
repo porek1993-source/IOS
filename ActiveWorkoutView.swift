@@ -201,5 +201,3 @@ struct ExerciseCard: View {
         viewModel.activeWorkoutSlots[index]
     }
 }
-
-}

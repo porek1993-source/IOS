@@ -49,5 +49,3 @@ struct ManualFatigueOverrideView: View {
         .preferredColorScheme(.dark)
     }
 }
-
-}

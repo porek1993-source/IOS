@@ -170,7 +170,3 @@ final class WorkoutViewModel {
         try? modelContext.save()
     }
 }
-
-    try? modelContext.save()
-    }
-}
